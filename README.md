@@ -227,4 +227,4 @@ Once you can run a *known* mapping, you're ready to start *suggesting* mappings.
 ## Acknowledgements
 
 Developed in the context of a data harmonization framework and tool at Stanford
-University (Computational Medicine / RADx).
+University, Computational Medicine.

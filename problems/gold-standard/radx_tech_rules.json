@@ -1,0 +1,2023 @@
+[
+  {
+    "sources": [
+      "user_id"
+    ],
+    "target": "nih_record_id",
+    "operations": [
+      {
+        "operation": "do_nothing"
+      }
+    ],
+    "metadata": {
+      "cde": "CDE1",
+      "concept": "Identity",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's identity `user_id` (asked \"User ID\") onto the common `nih_record_id`. Free-text/numeric value, passed through unchanged (rename only)."
+    }
+  },
+  {
+    "sources": [
+      "race_amind",
+      "race_black",
+      "race_asian",
+      "race_pacisl",
+      "race_white",
+      "race_other",
+      "race_dk"
+    ],
+    "target": "nih_race",
+    "operations": [
+      {
+        "operation": "reduce",
+        "reduction": "one-hot"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": "0"
+          },
+          {
+            "from": 1,
+            "to": "1"
+          },
+          {
+            "from": 2,
+            "to": "2"
+          },
+          {
+            "from": 3,
+            "to": "3"
+          },
+          {
+            "from": 4,
+            "to": "4"
+          },
+          {
+            "from": 5,
+            "to": "97"
+          },
+          {
+            "from": 6,
+            "to": "98"
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE2A",
+      "concept": "Race",
+      "program": "RADx-TECH",
+      "mapping_type": "one_hot",
+      "rationale": "RADx-TECH records race as 7 separate yes/no checkboxes (race_amind, race_black, race_asian\u2026); the common `nih_race` is a single multiple-choice field, so the checkbox that is set selects the category. Source order follows the canonical answer codes."
+    }
+  },
+  {
+    "sources": [
+      "ethnicity"
+    ],
+    "target": "nih_ethnicity",
+    "operations": [
+      {
+        "operation": "missing_code",
+        "codes": [
+          {
+            "code": "1;2;3",
+            "label": "missing"
+          }
+        ]
+      },
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 97,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE2B",
+      "concept": "Ethnicity",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's ethnicity `ethnicity` (asked \"Are you of Hispanic or Latino origin?\") onto the common `nih_ethnicity`. Answer codes are translated to the codebook's (e.g. Yes: Mexican, Mexican American Or Chicano;Yes: Puerto Rican;Yes: Cuban 1;2;3->1, Don't Know 77->98, Prefer Not To Answer 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "age_at_registration"
+    ],
+    "target": "nih_age",
+    "operations": [
+      {
+        "operation": "do_nothing"
+      }
+    ],
+    "metadata": {
+      "cde": "CDE3",
+      "concept": "Age",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's age `age_at_registration` (asked \"Age\") onto the common `nih_age`. Free-text/numeric value, passed through unchanged (rename only)."
+    }
+  },
+  {
+    "sources": [
+      "sex"
+    ],
+    "target": "nih_sex",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 2,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE4",
+      "concept": "Sex",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's sex `sex` (asked \"Gender\") onto the common `nih_sex`. Answer codes are translated to the codebook's (e.g. Female 2->0, Prefer Not To Answer 88->99, Male 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "education"
+    ],
+    "target": "nih_education",
+    "operations": [
+      {
+        "operation": "missing_code",
+        "codes": [
+          {
+            "code": "2;3",
+            "label": "missing"
+          },
+          {
+            "code": "4;5",
+            "label": "missing"
+          },
+          {
+            "code": "7;8;9",
+            "label": "missing"
+          }
+        ]
+      },
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 6,
+            "to": 4
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE5.1",
+      "concept": "Education Level",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's education level `education` (asked \"What is the highest grade or level of school you have compl\u2026\") onto the common `nih_education`. Answer codes are translated to the codebook's (e.g. High school graduate; GED or equivalent 2;3->2, Some college, no degree; Associate Degree: occupational, technical, or vocational program 4;5->3, Bachelor's Degree (Example: BA, AB, BS, BBA) 6->4). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "zip"
+    ],
+    "target": "nih_zip",
+    "operations": [
+      {
+        "operation": "do_nothing"
+      }
+    ],
+    "metadata": {
+      "cde": "CDE6",
+      "concept": "Domicile",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's domicile `zip` (asked \"Zipcode\") onto the common `nih_zip`. Free-text/numeric value, passed through unchanged (rename only)."
+    }
+  },
+  {
+    "sources": [
+      "working"
+    ],
+    "target": "nih_employment",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 1,
+            "to": 0
+          },
+          {
+            "from": 3,
+            "to": 1
+          },
+          {
+            "from": 7,
+            "to": 2
+          },
+          {
+            "from": 6,
+            "to": 3
+          },
+          {
+            "from": 4,
+            "to": 4
+          },
+          {
+            "from": 5,
+            "to": 5
+          },
+          {
+            "from": 99,
+            "to": 97
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE7",
+      "concept": "Employment",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's employment `working` (asked \"We would like to know about what you do-are you working now\u2026\") onto the common `nih_employment`. Answer codes are translated to the codebook's (e.g. Working Now 1->0, 3,Looking For Work, Unemployed;2,Only Temporarily Laid Off, Sick Leave, Or Maternity Leave 3->1, Student 7->2). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "cond_prev_activity"
+    ],
+    "target": "nih_disability",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.1",
+      "concept": "Base Disability",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's base disability `cond_prev_activity` (asked \"Do you have any serious physical or mental condition(s) tha\u2026\") onto the common `nih_disability`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "hearing"
+    ],
+    "target": "nih_deaf",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's disability status `hearing` (asked \"Are you deaf or do you have serious difficulty hearing?\") onto the common `nih_deaf`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "vision"
+    ],
+    "target": "nih_blind",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's disability status `vision` (asked \"Are you blind or do you have serious difficulty seeing, eve\u2026\") onto the common `nih_blind`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "memory"
+    ],
+    "target": "nih_memory",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's disability status `memory` (asked \"Because of a physical, mental, or emotional condition, do y\u2026\") onto the common `nih_memory`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "walk_stairs"
+    ],
+    "target": "nih_walk_climb",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's disability status `walk_stairs` (asked \"Do you have serious difficulty walking or climbing stairs?\u2026\") onto the common `nih_walk_climb`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "dressing_bathing"
+    ],
+    "target": "nih_dress_bathe",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's disability status `dressing_bathing` (asked \"Do you have difficulty dressing or bathing? (5 years or old\u2026\") onto the common `nih_dress_bathe`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "doctor_shopping"
+    ],
+    "target": "nih_errand",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's disability status `doctor_shopping` (asked \"Because of a physical, mental, or emotional condition, do y\u2026\") onto the common `nih_errand`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "smoking"
+    ],
+    "target": "nih_smoking_yn",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's medical history `smoking` onto the common `nih_smoking_yn`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "alcohol"
+    ],
+    "target": "nih_alcohol_yrs",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 2,
+            "to": 2
+          },
+          {
+            "from": 3,
+            "to": 3
+          },
+          {
+            "from": 4,
+            "to": 4
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's medical history `alcohol` onto the common `nih_alcohol_yrs`. Answer codes are translated to the codebook's (e.g. Never 0->0, Monthly Or Less 1->1, Two To Four Times Per Month 2->2). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "asthma"
+    ],
+    "target": "nih_asthma",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `asthma` onto the common `nih_asthma`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "cancer"
+    ],
+    "target": "nih_cancer_active_treatment",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's medical history `cancer` onto the common `nih_cancer_active_treatment`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "ckd"
+    ],
+    "target": "nih_chronic_kidney_disease_treatment",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 2,
+            "to": 2
+          },
+          {
+            "from": 3,
+            "to": 3
+          },
+          {
+            "from": 77,
+            "to": 98
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's medical history `ckd` onto the common `nih_chronic_kidney_disease_treatment`. Answer codes are translated to the codebook's (e.g. Don't Know 77->98, No 0->0, Yes, But Not On Dialysis 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "diabetes"
+    ],
+    "target": "nih_diabetes",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `diabetes` onto the common `nih_diabetes`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "hbp"
+    ],
+    "target": "nih_hypertension",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `hbp` onto the common `nih_hypertension`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "mental_illness"
+    ],
+    "target": "nih_mental_health_disorder",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `mental_illness` onto the common `nih_mental_health_disorder`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "sc_anemia"
+    ],
+    "target": "nih_sickle_cell_disease",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `sc_anemia` onto the common `nih_sickle_cell_disease`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "coronary_artery_disease"
+    ],
+    "target": "nih_coronary_artery_disease_angina",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's medical history `coronary_artery_disease` onto the common `nih_coronary_artery_disease_angina`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "heart_attack"
+    ],
+    "target": "nih_heart_attack",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `heart_attack` onto the common `nih_heart_attack`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "chf"
+    ],
+    "target": "nih_chf",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `chf` onto the common `nih_chf`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "stroke"
+    ],
+    "target": "nih_stroke",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `stroke` onto the common `nih_stroke`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "immunodeficiency"
+    ],
+    "target": "nih_immunodeficiency",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `immunodeficiency` onto the common `nih_immunodeficiency`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "hiv"
+    ],
+    "target": "nih_hiv",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `hiv` onto the common `nih_hiv`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "anemia"
+    ],
+    "target": "nih_anemia",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `anemia` onto the common `nih_anemia`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "premature"
+    ],
+    "target": "nih_premature_birth",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 2,
+            "to": 2
+          },
+          {
+            "from": 3,
+            "to": 3
+          },
+          {
+            "from": 4,
+            "to": 4
+          },
+          {
+            "from": 77,
+            "to": 98
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's medical history `premature` onto the common `nih_premature_birth`. Answer codes are translated to the codebook's (e.g. Dont Know 77->98, No 0->0, Yes, Between 32-37 Weeks 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "chd"
+    ],
+    "target": "nih_chd",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `chd` onto the common `nih_chd`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "cf"
+    ],
+    "target": "nih_cf",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's medical history `cf` onto the common `nih_cf`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "cld_bpd"
+    ],
+    "target": "nih_cld_bpd",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's medical history `cld_bpd` onto the common `nih_cld_bpd`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "copd"
+    ],
+    "target": "nih_copd_plus",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's medical history `copd` onto the common `nih_copd_plus`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "cough"
+    ],
+    "target": "nih_cough",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's symptoms `cough` (asked \"A cough (worse than usual)\") onto the common `nih_cough`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "fever_chills"
+    ],
+    "target": "nih_fever_chills",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's symptoms `fever_chills` (asked \"Symptoms of fever or chills\") onto the common `nih_fever_chills`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "shortness_of_breath"
+    ],
+    "target": "nih_diff_breath",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's symptoms `shortness_of_breath` (asked \"Shortness of breath\") onto the common `nih_diff_breath`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "muscle_aches"
+    ],
+    "target": "nih_muscle_ache",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's symptoms `muscle_aches` (asked \"Muscle aches (worse than usual)\") onto the common `nih_muscle_ache`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "unable_to_taste_or_smell"
+    ],
+    "target": "nih_olfactory",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's symptoms `unable_to_taste_or_smell` (asked \"Unable to taste or smell\") onto the common `nih_olfactory`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "nausea_vomiting_diarrhea"
+    ],
+    "target": "nih_nausea_vomiting_diarrhea",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-TECH",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-TECH's symptoms `nausea_vomiting_diarrhea` (asked \"Nausea, vomiting or diarrhea\") onto the common `nih_nausea_vomiting_diarrhea`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "red_eyes"
+    ],
+    "target": "nih_red_eyes",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's symptoms `red_eyes` (asked \"Red or painful eyes\") onto the common `nih_red_eyes`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "high_temp"
+    ],
+    "target": "nih_high_temp",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's symptoms `high_temp` (asked \"A temperature greater than 100.4 \u00b0F\") onto the common `nih_high_temp`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "no_symptoms"
+    ],
+    "target": "nih_no_sympt",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 99,
+            "to": 97
+          },
+          {
+            "from": 77,
+            "to": 98
+          },
+          {
+            "from": 88,
+            "to": 99
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-TECH",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-TECH's symptoms `no_symptoms` (asked \"None of the above\") onto the common `nih_no_sympt`. Answer codes are translated to the codebook's (e.g. Other 99->97, Dont Know 77->98, Refused/Na 88->99). Declared missing markers become null before mapping."
+    }
+  }
+]

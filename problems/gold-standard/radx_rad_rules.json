@@ -1,0 +1,1412 @@
+[
+  {
+    "sources": [
+      "record_id"
+    ],
+    "target": "nih_record_id",
+    "operations": [
+      {
+        "operation": "do_nothing"
+      }
+    ],
+    "metadata": {
+      "cde": "CDE1",
+      "concept": "Identity",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's identity `record_id` (asked \"Record ID\") onto the common `nih_record_id`. Free-text/numeric value, passed through unchanged (rename only)."
+    }
+  },
+  {
+    "sources": [
+      "race"
+    ],
+    "target": "nih_race",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 1,
+            "to": 0
+          },
+          {
+            "from": 3,
+            "to": 1
+          },
+          {
+            "from": 2,
+            "to": 2
+          },
+          {
+            "from": 4,
+            "to": 3
+          },
+          {
+            "from": 5,
+            "to": 4
+          },
+          {
+            "from": 6,
+            "to": 97
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE2A",
+      "concept": "Race",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's race `race` (asked \"What is your race? Mark one or more boxes\") onto the common `nih_race`. Answer codes are translated to the codebook's (e.g. American Indian or Alaska Native 1->0, Black or African American 3->1, Native Hawaiian or Other Pacific Islander 4->3). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "ethnicity"
+    ],
+    "target": "nih_ethnicity",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE2B",
+      "concept": "Ethnicity",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's ethnicity `ethnicity` (asked \"Are you of Hispanic or Latino origin?\") onto the common `nih_ethnicity`. Answer codes are translated to the codebook's (e.g. No, not of Hispanic or Latino origin 0->0, Yes, of Hispanic or Latino origin 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "age"
+    ],
+    "target": "nih_age",
+    "operations": [
+      {
+        "operation": "do_nothing"
+      }
+    ],
+    "metadata": {
+      "cde": "CDE3",
+      "concept": "Age",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's age `age` (asked \"What is your age?\") onto the common `nih_age`. Free-text/numeric value, passed through unchanged (rename only)."
+    }
+  },
+  {
+    "sources": [
+      "sex"
+    ],
+    "target": "nih_sex",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 2,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 3,
+            "to": 2
+          },
+          {
+            "from": 4,
+            "to": 96
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE4",
+      "concept": "Sex",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's sex `sex` (asked \"What is your biological sex assigned at birth?\") onto the common `nih_sex`. Answer codes are translated to the codebook's (e.g. Female 2->0, Intersex 3->2, None of these describe me 4->96). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "education"
+    ],
+    "target": "nih_education_yrs",
+    "operations": [
+      {
+        "operation": "do_nothing"
+      }
+    ],
+    "metadata": {
+      "cde": "CDE5.2",
+      "concept": "Education Years",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's education years `education` (asked \"How many years of education have you completed?\") onto the common `nih_education_yrs`. Free-text/numeric value, passed through unchanged (rename only)."
+    }
+  },
+  {
+    "sources": [
+      "zip"
+    ],
+    "target": "nih_zip",
+    "operations": [
+      {
+        "operation": "do_nothing"
+      }
+    ],
+    "metadata": {
+      "cde": "CDE6",
+      "concept": "Domicile",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's domicile `zip` (asked \"Zip or Postal Code:\") onto the common `nih_zip`. Free-text/numeric value, passed through unchanged (rename only)."
+    }
+  },
+  {
+    "sources": [
+      "employment"
+    ],
+    "target": "nih_employment",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 1,
+            "to": 0
+          },
+          {
+            "from": 3,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE7",
+      "concept": "Employment",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's employment `employment` (asked \"Are you employed?\") onto the common `nih_employment`. Answer codes are translated to the codebook's (e.g. 1, Employed in a permanent position; 2, Employed in a temporary position 1->0, Not currently employed 3->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "insurance"
+    ],
+    "target": "nih_insurance",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 3,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          },
+          {
+            "from": 2,
+            "to": 2
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE8",
+      "concept": "Insurance Status",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's insurance status `insurance` (asked \"What kind of health insurance do you have?\") onto the common `nih_insurance`. Answer codes are translated to the codebook's (e.g. None 3->0, Private insurance 1->1, Public insurance 2->2). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "deaf"
+    ],
+    "target": "nih_deaf",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's disability status `deaf` (asked \"Are you deaf or do you have serious difficulty hearing?\") onto the common `nih_deaf`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "blind"
+    ],
+    "target": "nih_blind",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's disability status `blind` (asked \"Are you blind or do you have serious difficulty seeing, eve\u2026\") onto the common `nih_blind`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "memory_dis"
+    ],
+    "target": "nih_memory",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's disability status `memory_dis` (asked \"Because of a physical, mental, or emotional condition, do y\u2026\") onto the common `nih_memory`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "walking_climbing_dis"
+    ],
+    "target": "nih_walk_climb",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's disability status `walking_climbing_dis` (asked \"Do you have serious difficulty walking or climbing stairs?\") onto the common `nih_walk_climb`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "dress_bathe_dis"
+    ],
+    "target": "nih_dress_bathe",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's disability status `dress_bathe_dis` (asked \"Do you have difficulty dressing or bathing?\") onto the common `nih_dress_bathe`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "errand_dis"
+    ],
+    "target": "nih_errand",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE9.2",
+      "concept": "Disability Status",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's disability status `errand_dis` (asked \"Because of a physical, mental, or emotional condition, do y\u2026\") onto the common `nih_errand`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "vaping"
+    ],
+    "target": "nih_vaping_yn",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `vaping` onto the common `nih_vaping_yn`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "nicotine"
+    ],
+    "target": "nih_nicotine_yn",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `nicotine` onto the common `nih_nicotine_yn`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "alcohol_use"
+    ],
+    "target": "nih_alcohol_yn",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `alcohol_use` onto the common `nih_alcohol_yn`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "asthma"
+    ],
+    "target": "nih_asthma",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `asthma` onto the common `nih_asthma`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "cancer"
+    ],
+    "target": "nih_cancer",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `cancer` onto the common `nih_cancer`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "cardiovascular_disease"
+    ],
+    "target": "nih_cardiovascular_disease",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `cardiovascular_disease` onto the common `nih_cardiovascular_disease`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "chronic_kidney_disease"
+    ],
+    "target": "nih_chronic_kidney_disease",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `chronic_kidney_disease` onto the common `nih_chronic_kidney_disease`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "chronic_lung_disease"
+    ],
+    "target": "nih_chronic_lung_disease",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `chronic_lung_disease` onto the common `nih_chronic_lung_disease`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "diabetes"
+    ],
+    "target": "nih_diabetes",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `diabetes` onto the common `nih_diabetes`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "hypertension"
+    ],
+    "target": "nih_hypertension",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `hypertension` onto the common `nih_hypertension`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "immunosuppressive_conditio"
+    ],
+    "target": "nih_immunosuppressive_condition",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `immunosuppressive_conditio` onto the common `nih_immunosuppressive_condition`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "serious_mental_illness"
+    ],
+    "target": "nih_serious_mental_illness",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's medical history `serious_mental_illness` onto the common `nih_serious_mental_illness`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "sickle_cell_disease"
+    ],
+    "target": "nih_sickle_cell_disease",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `sickle_cell_disease` onto the common `nih_sickle_cell_disease`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "pregnancy_status"
+    ],
+    "target": "nih_pregnancy",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE10",
+      "concept": "Medical History",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's medical history `pregnancy_status` onto the common `nih_pregnancy`. Answer codes are translated to the codebook's (e.g. Not pregnant 0->0, Currently pregnant 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "cough"
+    ],
+    "target": "nih_cough",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's symptoms `cough` (asked \"Cough\") onto the common `nih_cough`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "fever"
+    ],
+    "target": "nih_fever_chills",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's symptoms `fever` (asked \"Fever\") onto the common `nih_fever_chills`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "shortness_of_breath_or_dif"
+    ],
+    "target": "nih_diff_breath",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's symptoms `shortness_of_breath_or_dif` (asked \"Shortness of breath or difficulty breathing\") onto the common `nih_diff_breath`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "headache"
+    ],
+    "target": "nih_headache",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's symptoms `headache` (asked \"Headache\") onto the common `nih_headache`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "muscle_ache"
+    ],
+    "target": "nih_muscle_ache",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's symptoms `muscle_ache` (asked \"Muscle ache\") onto the common `nih_muscle_ache`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "new_loss_of_taste_or_smell"
+    ],
+    "target": "nih_olfactory",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's symptoms `new_loss_of_taste_or_smell` (asked \"New loss of taste or smell\") onto the common `nih_olfactory`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "excessive_fatigue"
+    ],
+    "target": "nih_fatigue",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's symptoms `excessive_fatigue` (asked \"Excessive fatigue\") onto the common `nih_fatigue`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "nausea_vomiting"
+    ],
+    "target": "nih_nausea_vomiting_diarrhea",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "many_to_one",
+      "rationale": "Maps RADx-rad's symptoms `nausea_vomiting` (asked \"Nausea/vomiting\") onto the common `nih_nausea_vomiting_diarrhea`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "abdominal_pain"
+    ],
+    "target": "nih_abdom_pain",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's symptoms `abdominal_pain` (asked \"Abdominal pain\") onto the common `nih_abdom_pain`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "skin_rash"
+    ],
+    "target": "nih_skin_rash",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's symptoms `skin_rash` (asked \"Skin rash\") onto the common `nih_skin_rash`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "conjunctivitis"
+    ],
+    "target": "nih_conjunctivitis",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 0,
+            "to": 0
+          },
+          {
+            "from": 1,
+            "to": 1
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE11",
+      "concept": "Symptoms",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's symptoms `conjunctivitis` (asked \"Conjunctivitis\") onto the common `nih_conjunctivitis`. Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "health_status"
+    ],
+    "target": "nih_health_status",
+    "operations": [
+      {
+        "operation": "cast",
+        "source": "text",
+        "target": "integer"
+      },
+      {
+        "operation": "enum_to_enum",
+        "mapping": [
+          {
+            "from": 1,
+            "to": 0
+          },
+          {
+            "from": 2,
+            "to": 1
+          },
+          {
+            "from": 3,
+            "to": 2
+          },
+          {
+            "from": 4,
+            "to": 3
+          },
+          {
+            "from": 5,
+            "to": 4
+          }
+        ],
+        "strict": false
+      }
+    ],
+    "metadata": {
+      "cde": "CDE12.1",
+      "concept": "Health Status General",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's health status general `health_status` (asked \"Would you say that (your) health in general is excellent, v\u2026\") onto the common `nih_health_status`. Answer codes are translated to the codebook's (e.g. Excellent 1->0, Very good 2->1, Good 3->2). Declared missing markers become null before mapping."
+    }
+  },
+  {
+    "sources": [
+      "height_feet"
+    ],
+    "target": "nih_height",
+    "operations": [
+      {
+        "operation": "do_nothing"
+      }
+    ],
+    "metadata": {
+      "cde": "CDE12.2",
+      "concept": "Health Status Height",
+      "program": "RADx-rad",
+      "mapping_type": "computed",
+      "rationale": "Derives the common `nih_height` (Health Status Height) from RADx-rad's `height_feet`. The original program collected this in a form needing a multi-step calculation (see metadata.steps); only part is expressible as a single primitive chain here.",
+      "steps": [
+        "convert [height_feet] to inches",
+        "sum of [self_reported_height_feet] and [self_reported_height_inches] will be transformed to single variable [nih_height]"
+      ]
+    }
+  },
+  {
+    "sources": [
+      "weight_lbs"
+    ],
+    "target": "nih_weight",
+    "operations": [
+      {
+        "operation": "do_nothing"
+      }
+    ],
+    "metadata": {
+      "cde": "CDE12.3",
+      "concept": "Health Status Weight",
+      "program": "RADx-rad",
+      "mapping_type": "one_to_one",
+      "rationale": "Maps RADx-rad's health status weight `weight_lbs` (asked \"What is your weight?\") onto the common `nih_weight`. Free-text/numeric value, passed through unchanged (rename only)."
+    }
+  }
+]

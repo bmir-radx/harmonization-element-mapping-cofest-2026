@@ -1,0 +1,2006 @@
+- sources: [dht_identity]
+  target: nih_record_id
+  operations:
+  - {operation: do_nothing}
+  metadata: {cde: CDE1, concept: Identity, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s identity `dht_identity` (asked "What is global identifier
+      of participant?") onto the common `nih_record_id`. Free-text/numeric value,
+      passed through unchanged (rename only).'}
+
+- sources: [dht_race]
+  target: nih_race
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 1, to: 0}
+    - {from: 3, to: 1}
+    - {from: 2, to: 2}
+    - {from: 5, to: 3}
+    - {from: 6, to: 4}
+    - {from: 4, to: 5}
+    - {from: 7, to: 6}
+    - {from: 8, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE2A, concept: Race, program: DHT, mapping_type: one_to_one, rationale: 'Maps
+      DHT''s race `dht_race` (asked "What is your race? Mark one or more boxes") onto
+      the common `nih_race`. Answer codes are translated to the codebook''s (e.g.
+      American Indian or Alaska Native 1->0, Black or African American 3->1, Native
+      Hawaiian or Other Pacific Islander 5->3). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_ethnicity_origin]
+  target: nih_ethnicity
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE2B, concept: Ethnicity, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s ethnicity `dht_ethnicity_origin` (asked "Are you of Hispanic
+      or Latino origin?") onto the common `nih_ethnicity`. Answer codes are translated
+      to the codebook''s (e.g. No, not of Hispanic or Latino origin 0->0, Yes, of
+      Hispanic or Latino origin 1->1, Don''t know 98->98). Declared missing markers
+      become null before mapping.'}
+
+- sources: [dht_age]
+  target: nih_age
+  operations:
+  - {operation: do_nothing}
+  metadata: {cde: CDE3, concept: Age, program: DHT, mapping_type: one_to_one, rationale: 'Maps
+      DHT''s age `dht_age` (asked "What is your age?") onto the common `nih_age`.
+      Free-text/numeric value, passed through unchanged (rename only).'}
+
+- sources: [dht_sex]
+  target: nih_sex
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 1, to: 0}
+    - {from: 2, to: 1}
+    - {from: 3, to: 2}
+    - {from: 4, to: 96}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE4, concept: Sex, program: DHT, mapping_type: one_to_one, rationale: 'Maps
+      DHT''s sex `dht_sex` (asked "What is your biological sex assigned at birth?")
+      onto the common `nih_sex`. Answer codes are translated to the codebook''s (e.g.
+      Female 1->0, Male 2->1, Intersex 3->2). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_education]
+  target: nih_education
+  operations:
+  - operation: missing_code
+    codes:
+    - {code: 6;4;5, label: missing}
+    - {code: 8;9;10, label: missing}
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 1, to: 0}
+    - {from: 2, to: 1}
+    - {from: 3, to: 2}
+    - {from: 7, to: 4}
+    - {from: 11, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE5.1, concept: Education Level, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s education level `dht_education` (asked "How many years
+      of education have you completed?") onto the common `nih_education`. Answer codes
+      are translated to the codebook''s (e.g. No formal schooling 1->0, Some school,
+      but did not graduate high school 2->1, High school diploma or equivalency (e.g.,
+      GED) 3->2). Declared missing markers become null before mapping.'}
+
+- sources: [dht_domicile]
+  target: nih_zip
+  operations:
+  - {operation: do_nothing}
+  metadata: {cde: CDE6, concept: Domicile, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s domicile `dht_domicile` (asked "What is your zip code?")
+      onto the common `nih_zip`. Free-text/numeric value, passed through unchanged
+      (rename only).'}
+
+- sources: [dht_employment]
+  target: nih_employment
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 1, to: 0}
+    - {from: 2, to: 1}
+    - {from: 3, to: 2}
+    - {from: 4, to: 3}
+    - {from: 5, to: 4}
+    - {from: 6, to: 5}
+    - {from: 7, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE7, concept: Employment, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s employment `dht_employment` (asked "Are you employed?")
+      onto the common `nih_employment`. Answer codes are translated to the codebook''s
+      (e.g. 1, Yes - Employed 1->0, 2, No - Not Employed 2->1, 3, In school (full
+      or part-time) 3->2). Declared missing markers become null before mapping.'}
+
+- sources: [dht_medical_insurance_short]
+  target: nih_insurance
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 1, to: 0}
+    - {from: 2, to: 1}
+    - {from: 3, to: 2}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE8, concept: Insurance Status, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s insurance status `dht_medical_insurance_short` (asked
+      "What insurance do you have?") onto the common `nih_insurance`. Answer codes
+      are translated to the codebook''s (e.g. No insurance 1->0, Private/Personal
+      Insurance 2->1, Public Insurance 3->2). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_disability]
+  target: nih_disability
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE9.1, concept: Base Disability, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's base disability `dht_disability` (asked \"Do you have a\
+      \ disability, including serious physical or men\u2026\") onto the common `nih_disability`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_deaf]
+  target: nih_deaf
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE9.2, concept: Disability Status, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's disability status `dht_deaf` (asked \"Are you deaf or do\
+      \ you have serious difficulty hearing?\") onto the common `nih_deaf`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_blind]
+  target: nih_blind
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE9.2, concept: Disability Status, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's disability status `dht_blind` (asked \"Are you blind or\
+      \ do you have serious difficulty seeing, eve\u2026\") onto the common `nih_blind`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_memory]
+  target: nih_memory
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE9.2, concept: Disability Status, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's disability status `dht_memory` (asked \"Because of a physical,\
+      \ mental, or emotional condition, do y\u2026\") onto the common `nih_memory`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_walk_climb]
+  target: nih_walk_climb
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE9.2, concept: Disability Status, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's disability status `dht_walk_climb` (asked \"Do you have\
+      \ serious difficulty walking or climbing stairs?\") onto the common `nih_walk_climb`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_dress_bathe]
+  target: nih_dress_bathe
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE9.2, concept: Disability Status, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's disability status `dht_dress_bathe` (asked \"Do you have\
+      \ difficulty dressing or bathing?\") onto the common `nih_dress_bathe`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_errand]
+  target: nih_errand
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE9.2, concept: Disability Status, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's disability status `dht_errand` (asked \"Because of a physical,\
+      \ mental, or emotional condition, do y\u2026\") onto the common `nih_errand`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_vaping]
+  target: nih_vaping_yn
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_vaping` onto the common `nih_vaping_yn`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_nicotine]
+  target: nih_nicotine_yn
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_nicotine` onto the common `nih_nicotine_yn`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_vaping_frequency]
+  target: nih_vape_freq
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 4, to: 0}
+    - {from: 3, to: 1}
+    - {from: 2, to: 2}
+    - {from: 1, to: 3}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s medical history `dht_vaping_frequency` onto the common
+      `nih_vape_freq`. Answer codes are translated to the codebook''s (e.g. Not at
+      all 4->0, Rarely 3->1, Every Day 1->3). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_cig_smoking_frequency]
+  target: nih_cig_smoke_freq
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 4, to: 0}
+    - {from: 3, to: 1}
+    - {from: 2, to: 2}
+    - {from: 1, to: 3}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s medical history `dht_cig_smoking_frequency` onto the common
+      `nih_cig_smoke_freq`. Answer codes are translated to the codebook''s (e.g. Not
+      at all 4->0, Rarely 3->1, Every Day 1->3). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_history_smoking]
+  target: nih_history_smoking
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_history_smoking` onto the common `nih_history_smoking`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_tobacco]
+  target: nih_tobacco
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 2, to: 2}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s medical history `dht_tobacco` onto the common `nih_tobacco`.
+      Answer codes are translated to the codebook''s (e.g. No tobacco use 0->0, Current
+      Tobacco user 1->1, Former Tobacco User 2->2). Declared missing markers become
+      null before mapping.'}
+
+- sources: [dht_alcohol]
+  target: nih_alcohol_yn
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_alcohol` onto the common `nih_alcohol_yn`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_alcohol_frequency]
+  target: nih_alcohol_frequency
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 2, to: 2}
+    - {from: 3, to: 3}
+    - {from: 4, to: 4}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s medical history `dht_alcohol_frequency` onto the common
+      `nih_alcohol_frequency`. Answer codes are translated to the codebook''s (e.g.
+      Never 0->0, Monthly Or Less 1->1, Two To Four Times Per Month 2->2). Declared
+      missing markers become null before mapping.'}
+
+- sources: [dht_asthma]
+  target: nih_asthma
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_asthma` onto the common `nih_asthma`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_cancer]
+  target: nih_cancer
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_cancer` onto the common `nih_cancer`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_cardiovascular_disease]
+  target: nih_cardiovascular_disease
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_cardiovascular_disease` onto the common\
+      \ `nih_cardiovascular_disease`. Answer codes are translated to the codebook's\
+      \ (e.g. No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers\
+      \ become null before mapping."}
+
+- sources: [dht_chronic_kidney_disease]
+  target: nih_chronic_kidney_disease
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_chronic_kidney_disease` onto the common\
+      \ `nih_chronic_kidney_disease`. Answer codes are translated to the codebook's\
+      \ (e.g. No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers\
+      \ become null before mapping."}
+
+- sources: [dht_chronic_lung_disease]
+  target: nih_chronic_lung_disease
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_chronic_lung_disease` onto the common\
+      \ `nih_chronic_lung_disease`. Answer codes are translated to the codebook's\
+      \ (e.g. No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers\
+      \ become null before mapping."}
+
+- sources: [dht_diabetes]
+  target: nih_diabetes
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_diabetes` onto the common `nih_diabetes`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_hypertension]
+  target: nih_hypertension
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_hypertension` onto the common `nih_hypertension`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_immunosuppressive_condition]
+  target: nih_immunosuppressive_condition
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_immunosuppressive_condition` onto\
+      \ the common `nih_immunosuppressive_condition`. Answer codes are translated\
+      \ to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared\
+      \ missing markers become null before mapping."}
+
+- sources: [dht_mental_illness]
+  target: nih_mental_health_disorder
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_mental_illness` onto the common `nih_mental_health_disorder`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_sickle_cell_disease]
+  target: nih_sickle_cell_disease
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_sickle_cell_disease` onto the common\
+      \ `nih_sickle_cell_disease`. Answer codes are translated to the codebook's (e.g.\
+      \ No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers become\
+      \ null before mapping."}
+
+- sources: [dht_pregnant]
+  target: nih_pregnancy
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s medical history `dht_pregnant` onto the common `nih_pregnancy`.
+      Answer codes are translated to the codebook''s (e.g. Not Pregnant 0->0, Pregnant
+      1->1, Don''t know 98->98). Declared missing markers become null before mapping.'}
+
+- sources: [dht_immuno_compromised]
+  target: nih_immunocompromised
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_immuno_compromised` onto the common\
+      \ `nih_immunocompromised`. Answer codes are translated to the codebook's (e.g.\
+      \ No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers become\
+      \ null before mapping."}
+
+- sources: [dht_autoimmune]
+  target: nih_autoimm
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_autoimmune` onto the common `nih_autoimm`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_copd]
+  target: nih_copd
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_copd` onto the common `nih_copd`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_depression]
+  target: nih_depression
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_depression` onto the common `nih_depression`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_alc_sub_abuse]
+  target: nih_alc_sub_abuse
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_alc_sub_abuse` onto the common `nih_alc_sub_abuse`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_iv_drug_use]
+  target: nih_iv_drug_use
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_iv_drug_use` onto the common `nih_iv_drug_use`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_other_mental_health_disorder]
+  target: nih_othermh
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_other_mental_health_disorder` onto\
+      \ the common `nih_othermh`. Answer codes are translated to the codebook's (e.g.\
+      \ No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers become\
+      \ null before mapping."}
+
+- sources: [dht_other_chronic_cond]
+  target: nih_other_chronic_cond
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_other_chronic_cond` onto the common\
+      \ `nih_other_chronic_cond`. Answer codes are translated to the codebook's (e.g.\
+      \ No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers become\
+      \ null before mapping."}
+
+- sources: [dht_coronary_artery_disease]
+  target: nih_coronary_artery_disease
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_coronary_artery_disease` onto the\
+      \ common `nih_coronary_artery_disease`. Answer codes are translated to the codebook's\
+      \ (e.g. No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers\
+      \ become null before mapping."}
+
+- sources: [dht_heart_attack]
+  target: nih_heart_attack
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_heart_attack` onto the common `nih_heart_attack`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_chf]
+  target: nih_chf
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_chf` onto the common `nih_chf`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_stroke]
+  target: nih_stroke
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_stroke` onto the common `nih_stroke`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_immunodeficiency]
+  target: nih_immunodeficiency
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_immunodeficiency` onto the common\
+      \ `nih_immunodeficiency`. Answer codes are translated to the codebook's (e.g.\
+      \ No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers become\
+      \ null before mapping."}
+
+- sources: [dht_hiv]
+  target: nih_hiv
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_hiv` onto the common `nih_hiv`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_anemia]
+  target: nih_anemia
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_anemia` onto the common `nih_anemia`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_chd]
+  target: nih_chd
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_chd` onto the common `nih_chd`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_copd_opd]
+  target: nih_copd_plus
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: many_to_one,
+    rationale: "Maps DHT's medical history `dht_copd_opd` onto the common `nih_copd_plus`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_alz]
+  target: nih_alz
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_alz` onto the common `nih_alz`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_anxiety]
+  target: nih_anxiety
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_anxiety` onto the common `nih_anxiety`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_arrhythmia]
+  target: nih_arrhythmia
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_arrhythmia` onto the common `nih_arrhythmia`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_arthritis]
+  target: nih_arthritis
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_arthritis` onto the common `nih_arthritis`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_af]
+  target: nih_af
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_af` onto the common `nih_af`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_chronic_pain]
+  target: nih_chronic_pain
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_chronic_pain` onto the common `nih_chronic_pain`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_fibromyalgia]
+  target: nih_fibromyalgia
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_fibromyalgia` onto the common `nih_fibromyalgia`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_gerd]
+  target: nih_gerd
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_gerd` onto the common `nih_gerd`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_gestational_diabetes]
+  target: nih_gestational_diabetes
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_gestational_diabetes` onto the common\
+      \ `nih_gestational_diabetes`. Answer codes are translated to the codebook's\
+      \ (e.g. No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers\
+      \ become null before mapping."}
+
+- sources: [dht_cholesterol]
+  target: nih_cholesterol
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_cholesterol` onto the common `nih_cholesterol`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_thyroid]
+  target: nih_thyroid
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_thyroid` onto the common `nih_thyroid`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_immuno_compromised_solid_organ]
+  target: nih_immuno_compromised_solid_organ
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_immuno_compromised_solid_organ` onto\
+      \ the common `nih_immuno_compromised_solid_organ`. Answer codes are translated\
+      \ to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared\
+      \ missing markers become null before mapping."}
+
+- sources: [dht_ibd]
+  target: nih_ibd
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_ibd` onto the common `nih_ibd`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_insomnia]
+  target: nih_insomnia
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_insomnia` onto the common `nih_insomnia`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_ibs]
+  target: nih_ibs
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_ibs` onto the common `nih_ibs`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_liver_disease]
+  target: nih_liver_disease
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_liver_disease` onto the common `nih_liver_disease`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_lupus]
+  target: nih_lupus
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_lupus` onto the common `nih_lupus`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_migraines]
+  target: nih_migraines
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_migraines` onto the common `nih_migraines`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_ms]
+  target: nih_ms
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_ms` onto the common `nih_ms`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_neurodegenerative]
+  target: nih_neurodegenerative
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_neurodegenerative` onto the common\
+      \ `nih_neurodegenerative`. Answer codes are translated to the codebook's (e.g.\
+      \ No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers become\
+      \ null before mapping."}
+
+- sources: [dht_neurological_condition]
+  target: nih_neurological_condition
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_neurological_condition` onto the common\
+      \ `nih_neurological_condition`. Answer codes are translated to the codebook's\
+      \ (e.g. No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers\
+      \ become null before mapping."}
+
+- sources: [dht_no_chronic_condition]
+  target: nih_no_chronic_condition
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_no_chronic_condition` onto the common\
+      \ `nih_no_chronic_condition`. Answer codes are translated to the codebook's\
+      \ (e.g. No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers\
+      \ become null before mapping."}
+
+- sources: [dht_obesity]
+  target: nih_obesity
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_obesity` onto the common `nih_obesity`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_osteoporosis]
+  target: nih_osteoporosis
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_osteoporosis` onto the common `nih_osteoporosis`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_pcos]
+  target: nih_pcos
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_pcos` onto the common `nih_pcos`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_psoriasis]
+  target: nih_psoriasis
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_psoriasis` onto the common `nih_psoriasis`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_renal]
+  target: nih_renal
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_renal` onto the common `nih_renal`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_rls]
+  target: nih_rls
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_rls` onto the common `nih_rls`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_ra]
+  target: nih_ra
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_ra` onto the common `nih_ra`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_seasonal_allergies]
+  target: nih_seasonal_allergies
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_seasonal_allergies` onto the common\
+      \ `nih_seasonal_allergies`. Answer codes are translated to the codebook's (e.g.\
+      \ No 0->0, Yes 1->1, Don\u2019t know 98->98). Declared missing markers become\
+      \ null before mapping."}
+
+- sources: [dht_heart_condition]
+  target: nih_heart_condition
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_heart_condition` onto the common `nih_heart_condition`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_sleep_apnea]
+  target: nih_sleep_apnea
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_sleep_apnea` onto the common `nih_sleep_apnea`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_substance_use]
+  target: nih_substance_use
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_substance_use` onto the common `nih_substance_use`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_thalassemia]
+  target: nih_thalassemia
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_thalassemia` onto the common `nih_thalassemia`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_t1d]
+  target: nih_t1d
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_t1d` onto the common `nih_t1d`. Answer\
+      \ codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_t2dm]
+  target: nih_t2dm
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE10, concept: Medical History, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's medical history `dht_t2dm` onto the common `nih_t2dm`.\
+      \ Answer codes are translated to the codebook's (e.g. No 0->0, Yes 1->1, Don\u2019\
+      t know 98->98). Declared missing markers become null before mapping."}
+
+- sources: [dht_cough]
+  target: nih_cough
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_cough` (asked "Cough") onto the common `nih_cough`.
+      Answer codes are translated to the codebook''s (e.g. No 0->0, Yes 1->1, Other
+      97->97). Declared missing markers become null before mapping.'}
+
+- sources: [dht_fever_chills]
+  target: nih_fever_chills
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_fever_chills` (asked "Fever, feeling hot/feverish,
+      or having chills") onto the common `nih_fever_chills`. Answer codes are translated
+      to the codebook''s (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing
+      markers become null before mapping.'}
+
+- sources: [dht_diff_breath]
+  target: nih_diff_breath
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_diff_breath` (asked "Shortness of breath
+      or difficulty breathing") onto the common `nih_diff_breath`. Answer codes are
+      translated to the codebook''s (e.g. No 0->0, Yes 1->1, Other 97->97). Declared
+      missing markers become null before mapping.'}
+
+- sources: [dht_headache]
+  target: nih_headache
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_headache` (asked "Headache") onto the common
+      `nih_headache`. Answer codes are translated to the codebook''s (e.g. No 0->0,
+      Yes 1->1, Other 97->97). Declared missing markers become null before mapping.'}
+
+- sources: [dht_body_pain]
+  target: nih_muscle_ache
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_body_pain` (asked "Muscle, body, or joint
+      aches (not due to exercise)") onto the common `nih_muscle_ache`. Answer codes
+      are translated to the codebook''s (e.g. No 0->0, Yes 1->1, Other 97->97). Declared
+      missing markers become null before mapping.'}
+
+- sources: [dht_olfactory]
+  target: nih_olfactory
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_olfactory` (asked "New loss of taste or
+      smell") onto the common `nih_olfactory`. Answer codes are translated to the
+      codebook''s (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing markers
+      become null before mapping.'}
+
+- sources: [dht_fatigue]
+  target: nih_fatigue
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_fatigue` (asked "Fatigue (more than normal)")
+      onto the common `nih_fatigue`. Answer codes are translated to the codebook''s
+      (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_nausea_vomiting_diarrhea]
+  target: nih_nausea_vomiting_diarrhea
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_nausea_vomiting_diarrhea` (asked "Nausea,
+      vomiting, or diarrhea") onto the common `nih_nausea_vomiting_diarrhea`. Answer
+      codes are translated to the codebook''s (e.g. No 0->0, Yes 1->1, Other 97->97).
+      Declared missing markers become null before mapping.'}
+
+- sources: [dht_abdom_pain]
+  target: nih_abdom_pain
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_abdom_pain` (asked "Stomach or abdominal
+      pain") onto the common `nih_abdom_pain`. Answer codes are translated to the
+      codebook''s (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing markers
+      become null before mapping.'}
+
+- sources: [dht_skin_rash]
+  target: nih_skin_rash
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_skin_rash` (asked "Skin rash") onto the
+      common `nih_skin_rash`. Answer codes are translated to the codebook''s (e.g.
+      No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null before
+      mapping.'}
+
+- sources: [dht_conjunctivitis]
+  target: nih_conjunctivitis
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_conjunctivitis` (asked "Pink eye or conjunctivitis")
+      onto the common `nih_conjunctivitis`. Answer codes are translated to the codebook''s
+      (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_congestion_sorethroat_runnynose]
+  target: nih_throat_congestion_nose
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: many_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_congestion_sorethroat_runnynose` (asked
+      "Congestion, runny nose, sore throat") onto the common `nih_throat_congestion_nose`.
+      Answer codes are translated to the codebook''s (e.g. No 0->0, Yes 1->1, Other
+      97->97). Declared missing markers become null before mapping.'}
+
+- sources: [dht_red_eyes]
+  target: nih_red_eyes
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_red_eyes` (asked "Red or painful eyes")
+      onto the common `nih_red_eyes`. Answer codes are translated to the codebook''s
+      (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_high_temp]
+  target: nih_high_temp
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: "Maps DHT's symptoms `dht_high_temp` (asked \"A temperature greater\
+      \ than 100.4\xB0F\") onto the common `nih_high_temp`. Answer codes are translated\
+      \ to the codebook's (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing\
+      \ markers become null before mapping."}
+
+- sources: [dht_other_symp]
+  target: nih_other_symp
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_other_symp` (asked "Other") onto the common
+      `nih_other_symp`. Answer codes are translated to the codebook''s (e.g. No 0->0,
+      Yes 1->1, Other 97->97). Declared missing markers become null before mapping.'}
+
+- sources: [dht_no_symp]
+  target: nih_no_sympt
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_no_symp` (asked "None of the above") onto
+      the common `nih_no_sympt`. Answer codes are translated to the codebook''s (e.g.
+      No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null before
+      mapping.'}
+
+- sources: [dht_wheezing]
+  target: nih_wheezing
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_wheezing` (asked "Wheezing") onto the common
+      `nih_wheezing`. Answer codes are translated to the codebook''s (e.g. No 0->0,
+      Yes 1->1, Other 97->97). Declared missing markers become null before mapping.'}
+
+- sources: [dht_blue_lips]
+  target: nih_blue_lips
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_blue_lips` (asked "Bluish lips or face")
+      onto the common `nih_blue_lips`. Answer codes are translated to the codebook''s
+      (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_balance]
+  target: nih_balance
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_balance` (asked "Loss of balance") onto
+      the common `nih_balance`. Answer codes are translated to the codebook''s (e.g.
+      No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null before
+      mapping.'}
+
+- sources: [dht_slurred_peech]
+  target: nih_slurred_peech
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_slurred_peech` (asked "Slurred speech")
+      onto the common `nih_slurred_peech`. Answer codes are translated to the codebook''s
+      (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_confusion]
+  target: nih_confusion
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_confusion` (asked "New confusion") onto
+      the common `nih_confusion`. Answer codes are translated to the codebook''s (e.g.
+      No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null before
+      mapping.'}
+
+- sources: [dht_neuro_shakes]
+  target: nih_neuro_shakes
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_neuro_shakes` (asked "Unusual shivering
+      or shaking") onto the common `nih_neuro_shakes`. Answer codes are translated
+      to the codebook''s (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing
+      markers become null before mapping.'}
+
+- sources: [dht_numb_extremities]
+  target: nih_numb_extremities
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_numb_extremities` (asked "Tingling or numbness
+      or swelling of hands and feet") onto the common `nih_numb_extremities`. Answer
+      codes are translated to the codebook''s (e.g. No 0->0, Yes 1->1, Other 97->97).
+      Declared missing markers become null before mapping.'}
+
+- sources: [dht_sweating]
+  target: nih_sweating
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_sweating` (asked "Excessive sweating") onto
+      the common `nih_sweating`. Answer codes are translated to the codebook''s (e.g.
+      No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null before
+      mapping.'}
+
+- sources: [dht_seizures]
+  target: nih_seizures
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_seizures` (asked "Seizures") onto the common
+      `nih_seizures`. Answer codes are translated to the codebook''s (e.g. No 0->0,
+      Yes 1->1, Other 97->97). Declared missing markers become null before mapping.'}
+
+- sources: [dht_rash_toes]
+  target: nih_rash_toes
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_rash_toes` (asked "Red or purple rash or
+      lesions on toes") onto the common `nih_rash_toes`. Answer codes are translated
+      to the codebook''s (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing
+      markers become null before mapping.'}
+
+- sources: [dht_appetite]
+  target: nih_appetite
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 0, to: 0}
+    - {from: 1, to: 1}
+    - {from: 97, to: 97}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE11, concept: Symptoms, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s symptoms `dht_appetite` (asked "Change in or loss of appetite")
+      onto the common `nih_appetite`. Answer codes are translated to the codebook''s
+      (e.g. No 0->0, Yes 1->1, Other 97->97). Declared missing markers become null
+      before mapping.'}
+
+- sources: [dht_health_status]
+  target: nih_health_status
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 1, to: 0}
+    - {from: 2, to: 1}
+    - {from: 3, to: 2}
+    - {from: 4, to: 3}
+    - {from: 5, to: 4}
+    - {from: 98, to: 98}
+    - {from: 99, to: 99}
+    strict: false
+  metadata: {cde: CDE12.1, concept: Health Status General, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s health status general `dht_health_status` (asked "Self-report
+      health status") onto the common `nih_health_status`. Answer codes are translated
+      to the codebook''s (e.g. Excellent 1->0, Very Good 2->1, Good 3->2). Declared
+      missing markers become null before mapping.'}
+
+- sources: [dht_height]
+  target: nih_height
+  operations:
+  - {operation: do_nothing}
+  metadata:
+    cde: CDE12.2
+    concept: Health Status Height
+    program: DHT
+    mapping_type: computed
+    rationale: Derives the common `nih_height` (Health Status Height) from DHT's `dht_height`.
+      The original program collected this in a form needing a multi-step calculation
+      (see metadata.steps); only part is expressible as a single primitive chain here.
+    steps: [No Value Conversion necessary; dht_height maps directly to nih_height]
+
+- sources: [dht_weight]
+  target: nih_weight
+  operations:
+  - {operation: do_nothing}
+  metadata: {cde: CDE12.3, concept: Health Status Weight, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s health status weight `dht_weight` (asked "What is your
+      weight in pounds?") onto the common `nih_weight`. Free-text/numeric value, passed
+      through unchanged (rename only).'}
+
+- sources: [dht_height_category]
+  target: nih_height_category
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 1, to: 1}
+    - {from: 2, to: 2}
+    - {from: 3, to: 3}
+    strict: false
+  metadata: {cde: CDE12.4, concept: Health Status Category, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s health status category `dht_height_category` (asked "Approximately
+      what is your height?") onto the common `nih_height_category`. Answer codes are
+      translated to the codebook''s (e.g. 5''1" - 5''6" 1->1, 5''7"-5''11" 2->2, 6''
+      and over 3->3). Declared missing markers become null before mapping.'}
+
+- sources: [dht_weight_category]
+  target: nih_weight_category
+  operations:
+  - {operation: cast, source: text, target: integer}
+  - operation: enum_to_enum
+    mapping:
+    - {from: 1, to: 1}
+    - {from: 2, to: 2}
+    - {from: 3, to: 3}
+    strict: false
+  metadata: {cde: CDE12.4, concept: Health Status Category, program: DHT, mapping_type: one_to_one,
+    rationale: 'Maps DHT''s health status category `dht_weight_category` (asked "Approximately
+      what is your weight?") onto the common `nih_weight_category`. Answer codes are
+      translated to the codebook''s (e.g. 100-150 1->1, 151-200 2->2, over 200 3->3).
+      Declared missing markers become null before mapping.'}

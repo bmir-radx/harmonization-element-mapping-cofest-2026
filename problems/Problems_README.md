@@ -32,6 +32,11 @@ the target dictionary comes as
 LinkML formats carry the same information and are convertible to each other —
 both are provided so you can work with whichever you prefer.
 
+The CSV dictionaries follow the
+[RADx Data Dictionary Specification](https://github.com/bmir-radx/radx-data-dictionary-specification/blob/main/radx-data-dictionary-specification.md)
+(see the [specification repo](https://github.com/bmir-radx/radx-data-dictionary-specification)),
+which defines the columns and their meaning.
+
 ## The task
 
 For each data element in the target dictionary, work out which data element(s)

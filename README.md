@@ -39,7 +39,7 @@ The CSV data dictionaries follow the [RADx Data Dictionary Specification](https:
 
 ---
 
-## Project Tracks / Ideas
+## Project Ideas
 
 Feel free to choose a track or propose your own:
 

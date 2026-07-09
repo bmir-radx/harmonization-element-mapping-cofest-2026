@@ -14,9 +14,6 @@ The goal of this project is to develop methods that **suggest candidate mappings
 
 Given a **source** data dictionary and a **target** model dictionary (the Global Code Book), your solution should identify which source data element(s) map to each target data element.
 
-> [!NOTE]
-> In this CoFest challenge, we only care about mapping variables together. The underlying data transformation operations (like unit conversion or enum-to-enum remapping) are not the concern of this track.
-
 ### Dataset Structure
 
 The [problems/](problems/) directory contains the real-world dataset:

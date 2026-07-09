@@ -4,7 +4,7 @@
 
 AI-assisted suggestion of mappings between **source** and **target** data dictionaries to make biomedical data harmonization faster with humans in the loop.
 
-This project runs **alongside our CoFest poster** on the [Harmonizer](#%EF%B8%8F-resources) tool being developed at the Stanford Division of Computational Medicine.
+This project runs **alongside our CoFest poster** on the [Harmonizer](https://github.com/bmir-radx/harmonization-ui-angular) tool being developed at the Stanford Division of Computational Medicine.
 
 ---
 
@@ -87,7 +87,7 @@ harmonize \
 
 ---
 
-## 🔗 Resources
+## Resources
 
 - **Angular + Electron UI**: [harmonization-ui-angular](https://github.com/bmir-radx/harmonization-ui-angular)
 - **Python Backend Framework**: [harmonization-framework](https://github.com/bmir-radx/harmonization-framework)

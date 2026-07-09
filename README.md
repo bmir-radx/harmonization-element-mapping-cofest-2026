@@ -14,16 +14,16 @@ The goal of this project is to develop methods that **suggest candidate mappings
 
 Given a **source** data dictionary and a **target** model dictionary (the Global Code Book), your solution should identify which source data element(s) map to each target data element.
 
-### Dataset Structure
+### Pro Structure
 
-The [problems/](problems/) directory contains the real-world dataset:
+The [problems/](problems/) directory contains the real-world dataset to try your s:
 
-- 📂 **[Source Dictionaries](problems/datadictionaries/source-dictionaries/)**: Metadata for elements collected by four programs:
+- 📂 **[Source Data Dictionaries](problems/datadictionaries/source-dictionaries/)**: Data Elements describing data collected by four NIH programs:
   - [RADx-rad](problems/datadictionaries/source-dictionaries/rad/)
   - [RADx-UP](problems/datadictionaries/source-dictionaries/up/)
   - [RADx Tech](problems/datadictionaries/source-dictionaries/tech/)
   - [RADx DHT](problems/datadictionaries/source-dictionaries/dht/)
-- 📂 **[Target Dictionary](problems/datadictionaries/target-dictionary/)**: The target data dictionary for the [Global Code Book (GCB)](problems/datadictionaries/target-dictionary/gcb.dd.csv).
+- 📂 **[Target Data Dictionary](problems/datadictionaries/target-dictionary/)**: The target data dictionary for the [Global Code Book (GCB)](problems/datadictionaries/target-dictionary/gcb.dd.csv).
 - 📂 **[Gold Standard Mappings](problems/gold-standard/)**: Human-curated mapping rules (ground truth) in JSON/YAML. Each rule contains a `sources` list and a `target` name. *(Note: The gold standard files also contain `operations` for data transformation, but you can ignore those and focus purely on the `sources -> target` mappings).*
 
 Refer to the [Problems README](problems/Problems_README.md) for full details on the challenge setup and files.

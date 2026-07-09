@@ -14,9 +14,9 @@ The goal of this project is to develop methods that **suggest candidate mappings
 
 Given a **source** data dictionary and a **target** model dictionary (the Global Code Book), your solution should identify which source data element(s) map to each target data element.
 
-### Pro Structure
+### Problem Set Structure
 
-The [problems/](problems/) directory contains the real-world dataset to try your s:
+The [problems/](problems/) directory contains the real-world problem set:
 
 - 📂 **[Source Data Dictionaries](problems/datadictionaries/source-dictionaries/)**: Data Elements describing data collected by four NIH programs:
   - [RADx-rad](problems/datadictionaries/source-dictionaries/rad/)

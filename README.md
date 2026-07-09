@@ -5,7 +5,7 @@
  AI-assisted suggestion of mappings between **source** and **target** data dictionaries, to make biomedical data harmonization faster with humans in the loop.
 
 This project runs **alongside our CoFest poster** on the
-[Harmonizer](#the-tool-were-building-around) tool being developed at Stanford Computational Medicine. Come to the poster, then come build with us.
+[Harmonizer](#the-tool-were-building-around) tool being developed at Stanford Division of Computational Medicine. Come to the poster, then come build with us.
 
 
 ---
@@ -97,7 +97,7 @@ These are exactly the calls we want AI to *propose*, so a curator only has to
 
 ### What a confirmed mapping looks like (the output format)
 
-The harmonization framework consumes mappings as **rules**. Each rule names the
+Our target tool, Harmonizer, uses an underlying **harmonization framework** to run transformations. The framework consumes mappings as **rules**. Each rule names the
 source(s), the target, and an ordered list of operations:
 
 ```json
@@ -129,7 +129,7 @@ goal).
 
 ## Project ideas / tracks
 
-Pick what matches your interests — these can run in parallel:
+Pick what matches your interests — these can run in parallel. We have sample source and target dictionaries available to get started (detailed in the [Prerequisites](#prerequisites-read--skim-before-the-cofest) section below).
 
 - **LLM-based mapping suggestions.** Feed source + target element metadata to an
   LLM and get back ranked candidate targets + a rationale, automatically — no
@@ -187,6 +187,9 @@ to see the human workflow we're augmenting.
 
 ## Getting started (run the framework locally)
 
+> [!IMPORTANT]
+> The framework currently requires Python 3.9 to 3.13. Python 3.14+ is not supported yet due to dependency requirements (e.g., `pyproject-toml`).
+
 ```bash
 # Backend / framework
 git clone https://github.com/bmir-radx/harmonization-framework.git
@@ -227,4 +230,4 @@ Once you can run a *known* mapping, you're ready to start *suggesting* mappings.
 ## Acknowledgements
 
 Developed in the context of a data harmonization framework and tool at Stanford
-University, Computational Medicine.
+University, Division of Computational Medicine.

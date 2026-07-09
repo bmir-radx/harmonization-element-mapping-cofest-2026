@@ -2,9 +2,7 @@
 
 **BOSC 2026 Collaboration Fest (CoFest) project**
 
-AI-assisted suggestion of mappings between **source** and **target** data dictionaries to make biomedical data harmonization faster with humans in the loop.
-
-This project runs **alongside our CoFest poster** on the [Harmonizer](https://github.com/bmir-radx/harmonization-ui-angular) tool being developed at the Stanford Division of Computational Medicine.
+This repository contains the problem set and documentation for our CoFest project. The project focuses on using AI/LLM methods to suggest mapping candidates between source data elements and target data elements.
 
 ---
 
@@ -12,9 +10,56 @@ This project runs **alongside our CoFest poster** on the [Harmonizer](https://gi
 
 The goal of this project is to develop methods that **suggest candidate mappings** from source data elements to target data elements.
 
-Given a **source** data dictionary and a **target** model dictionary (the Global Code Book), your solution should identify which source data element(s) map to each target data element.
+Given a **source** data dictionary and a **target** data dictionary (the Global Code Book), your solution should identify which source data element(s) map to each target data element.
 
-### Problem Set Structure
+### What is Data Harmonization?
+
+In biomedical research, different projects collect data using custom schemas, data elements, and formats. To analyze data together, curators must manually map data elements representing the same clinical concept to a unified schema.
+
+For example, a study might record education levels as `edu_years_of_school` (with numeric year categories), whereas the target model requires `nih_education`. A human curator uses the [Harmonizer](https://github.com/bmir-radx/harmonization-ui-angular) desktop app to build and run mapping rules.
+
+Here is a visual screenshot of how the Harmonizer interface displays these mappings and suggests connections:
+
+![Harmonizer UI Desktop Screenshot](assets/harmonizer_ui.png)
+
+#### 📋 Component Definitions & Examples
+
+1. **Source Data Element**
+   - **Definition**: A data element and its associated metadata collected by an individual research program.
+   - **Example**: `edu_years_of_school` from the RADx-UP program.
+     - *Metadata*:
+       - **Label**: "What is the highest level of education you have achieved outside or in the United States? Grades roughly equivalent to years of school."
+       - **Enumerations**: `"0"=[No formal schooling] | "4"=[High school graduate or GED completed] | "5"=[Some college level...]`
+       - **Datatype**: `integer`
+
+2. **Target Data Element**
+   - **Definition**: A standardized data element in the common destination schema (the Global Code Book).
+   - **Example**: `nih_education` in the Global Code Book (GCB).
+     - *Metadata*:
+       - **Label**: "Education Level"
+       - **Datatype**: `integer`
+       - **Description**: Standardized codebook categorization for education.
+
+3. **Harmonization Mapping Rule**
+   - **Definition**: The configuration mapping the source data element(s) to the target data element.
+   - **Example mapping rule** (simplified to focus on the mapping only, ignoring transformations):
+
+     ```json
+     {
+       "sources": ["edu_years_of_school"],
+       "target": "nih_education",
+       "metadata": {
+         "program": "RADx-UP",
+         "concept": "Education Level"
+       }
+     }
+     ```
+
+---
+
+## The CoFest Project: RADx Problem Set
+
+The problem set is based on a real harmonization task from the NIH **RADx** (Rapid Acceleration of Diagnostics) project, where human study data collected by four different programs had to be harmonized to a single common data model — the **Global Code Book (GCB)**.
 
 The [problems/](problems/) directory contains the real-world problem set:
 
@@ -26,16 +71,57 @@ The [problems/](problems/) directory contains the real-world problem set:
 - 📂 **[Target Data Dictionary](problems/datadictionaries/target-dictionary/)**: The target data dictionary for the [Global Code Book (GCB)](problems/datadictionaries/target-dictionary/gcb.dd.csv).
 - 📂 **[Gold Standard Mappings](problems/gold-standard/)**: Human-curated mapping rules (ground truth) in JSON/YAML. Each rule contains a `sources` list and a `target` name. *(Note: The gold standard files also contain `operations` for data transformation, but you can ignore those and focus purely on the `sources -> target` mappings).*
 
-Refer to the [Problems README](problems/Problems_README.md) for full details on the challenge setup and files.
+Refer to the [Problems README](problems/Problems_README.md) for full details on the project setup and files.
 
-The CSV data dictionaries follow the [RADx Data Dictionary Specification](https://github.com/bmir-radx/radx-data-dictionary-specification/blob/main/radx-data-dictionary-specification.md) and include key information for the data element mappings:
+### Dictionary Formats Available
 
-- **`Id`**: Variable name (e.g., `commute_distance_miles`).
+Each dictionary is provided in three formats for flexibility:
+
+- **CSV (`*.dd.csv`)**: Follows the [RADx Data Dictionary Specification](https://github.com/bmir-radx/radx-data-dictionary-specification/blob/main/radx-data-dictionary-specification.md) (defining columns and metadata layout).
+- **LinkML Schema (`*.yaml`)**: Machine-readable LinkML model schema.
+- **Browsable HTML (`*.html`)**: Interactive page showing metadata annotations and definitions.
+
+### Metadata Signals in CSV dictionaries
+
+The CSV dictionaries include key columns to utilize for your models:
+
+- **`Id`**: Data element name (e.g., `commute_distance_miles`).
 - **`Label`**: Human-readable question text / description.
 - **`Enumeration`**: Allowed values & labels (e.g., `"1"=[Working now] | "4"=[Retired]`).
 - **`Datatype` & `Unit`**: Data type (integer, float, string) and units (e.g., `miles`, `fahrenheit`).
 - **`Terms`**: Ontology mapping terms, if available.
 - **`Notes`**: Free-text context.
+
+---
+
+## Expectations & Output Format
+
+### What you need to produce
+
+Your mapping tool or pipeline should read the source and target data dictionaries and output a mapping rules file for each source program (e.g., `radx_up_mappings.json`).
+
+### Expected Output Schema
+
+The mapping rules file should be a flat JSON or YAML array of rule entries. Each entry must define the `sources` array and the `target` name.
+
+```json
+[
+  {
+    "sources": ["edu_years_of_school"],
+    "target": "nih_education"
+  },
+  {
+    "sources": ["covid_fatique"],
+    "target": "nih_fatigue"
+  }
+]
+```
+
+To validate your generated output rules for syntax, schema compliance, and matching targets, you can use the `harmonize --validate` command from the [harmonization-framework](https://github.com/bmir-radx/harmonization-framework):
+
+```bash
+harmonize --validate --rules path/to/your_generated_rules.json
+```
 
 ---
 

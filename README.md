@@ -8,7 +8,7 @@ This project runs **alongside our CoFest poster** on the [Harmonizer](https://gi
 
 ---
 
-## The CoFest Challenge
+## Project Description
 
 The goal of this track is to develop methods that **suggest candidate mappings** from source variables to target variables.
 

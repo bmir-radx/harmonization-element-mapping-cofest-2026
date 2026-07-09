@@ -10,7 +10,7 @@ This project runs **alongside our CoFest poster** on the [Harmonizer](https://gi
 
 ## Project Description
 
-The goal of this track is to develop methods that **suggest candidate mappings** from source variables to target variables.
+The goal of this project is to develop methods that **suggest candidate mappings** from source variables to target variables.
 
 Given a **source** data dictionary and a **target** model dictionary (the Global Code Book), your tool should identify which source data element(s) map to each target data element.
 

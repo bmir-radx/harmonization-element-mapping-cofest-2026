@@ -10,9 +10,9 @@ This project runs **alongside our CoFest poster** on the [Harmonizer](https://gi
 
 ## Project Description
 
-The goal of this project is to develop methods that **suggest candidate mappings** from source variables to target variables.
+The goal of this project is to develop methods that **suggest candidate mappings** from source data elements to target data elements.
 
-Given a **source** data dictionary and a **target** model dictionary (the Global Code Book), your tool should identify which source data element(s) map to each target data element.
+Given a **source** data dictionary and a **target** model dictionary (the Global Code Book), your solution should identify which source data element(s) map to each target data element.
 
 > [!NOTE]
 > In this CoFest challenge, we only care about mapping variables together. The underlying data transformation operations (like unit conversion or enum-to-enum remapping) are not the concern of this track.

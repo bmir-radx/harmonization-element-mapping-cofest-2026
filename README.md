@@ -28,8 +28,6 @@ The [problems/](problems/) directory contains the real-world problem set:
 
 Refer to the [Problems README](problems/Problems_README.md) for full details on the challenge setup and files.
 
-### Metadata Signals Available
-
 The CSV dictionaries follow the [RADx Data Dictionary Specification](https://github.com/bmir-radx/radx-data-dictionary-specification/blob/main/radx-data-dictionary-specification.md) and include key signals for your models:
 
 - **`Id`**: Variable name (e.g., `commute_distance_miles`).

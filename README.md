@@ -41,7 +41,7 @@ The CSV data dictionaries follow the [RADx Data Dictionary Specification](https:
 
 ## Project Ideas
 
-Feel free to choose a track or propose your own:
+Feel free to choose one or more of the following ideas or propose your own:
 
 - **LLM / Embedding pipeline**: Build an automated pipeline that reads source + target dictionary metadata, queries an LLM/embedding model, and returns ranked candidate mappings with a short rationale.
 - **Hybrid Rule + AI matching**: Combine simple heuristic rules (like keyword matching or name overlaps) to prune the candidate space, then use LLMs/embeddings to rank the final suggestions.
